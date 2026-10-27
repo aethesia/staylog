@@ -317,11 +317,11 @@ export default function StayForm({ open, initial, onSave, onClose }: Props) {
             <div className="geo-status">未来日期，将记为「即将入住」，暂不计入统计</div>
           )}
           <div className="field">
-            <label htmlFor="eligibleNights">是否计入集团有效房晚</label>
+            <label htmlFor="eligibleNights">是否计入有效房晚</label>
             <select id="eligibleNights" value={form.eligibleNights === false ? "no" : "yes"}
               onChange={(e) => set("eligibleNights", e.target.value === "yes")}>
-              <option value="yes">是，计入有效房晚</option>
-              <option value="no">否，仅记录住宿</option>
+              <option value="yes">是</option>
+              <option value="no">否</option>
             </select>
           </div>
           <div className="field">
