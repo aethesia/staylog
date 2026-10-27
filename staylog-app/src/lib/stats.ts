@@ -391,14 +391,18 @@ export function tierProgress(m: Membership, stays: Stay[], year: number): TierPr
 
 function manualProgress(m: Membership, progress: number): TierProgress {
   const threshold = m.targetNights;
+  const current = currentTierDef(m.group, m.tier);
+  const target = m.targetTier ? currentTierDef(m.group, m.targetTier) : null;
   return {
     mode: "manual",
     currentName: m.tier,
+    currentEn: current?.en,
     progress,
     threshold,
     pct: threshold > 0 ? Math.min(100, Math.round((progress / threshold) * 100)) : 0,
     remaining: Math.max(0, threshold - progress),
     targetName: m.targetTier || null,
+    targetEn: target?.en,
   };
 }
 
