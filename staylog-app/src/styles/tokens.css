@@ -26,6 +26,12 @@
   --map-glow:rgba(201,162,75,.35);
   --hilton:#3f76d4;
   --huazhu:#d97544;
+  --marriott:#a52a2a;
+  --hyatt:#7b2f8e;
+  --ihg:#1f6f8b;
+  --accor:#b07a2b;
+  --shangrila:#6b3f2a;
+  --gha:#3f7d5a;
   --other:#8a94a6;
   --shadow:0 10px 30px rgba(0,0,0,.45);
   /* 布局：内容最大宽度 + 侧栏宽度，超宽屏断点放大（见 app.css @media min-width:1600/1920） */
@@ -42,7 +48,7 @@
     --emboss:inset 0 1px 0 rgba(255,255,255,.6), 0 8px 22px rgba(90,78,52,.16);
     --good:#2b9463; --warn:#a4791f; --danger:#bf4040;
     --map-dot:#d3cebd; --map-glow:rgba(143,109,36,.35);
-    --hilton:#2a5cb8; --huazhu:#c25c2d; --other:#6b7386;
+    --hilton:#2a5cb8; --huazhu:#c25c2d; --marriott:#8c2020; --hyatt:#6b267d; --ihg:#185c73; --accor:#91621f; --shangrila:#573220; --gha:#2f6848; --other:#6b7386;
     --shadow:0 8px 24px rgba(90,78,52,.16);
   }
 }
@@ -55,7 +61,7 @@
   --emboss:inset 0 1px 0 rgba(255,255,255,.6), 0 8px 22px rgba(90,78,52,.16);
   --good:#2b9463; --warn:#a4791f; --danger:#bf4040;
   --map-dot:#d3cebd; --map-glow:rgba(143,109,36,.35);
-  --hilton:#2a5cb8; --huazhu:#c25c2d; --other:#6b7386;
+  --hilton:#2a5cb8; --huazhu:#c25c2d; --marriott:#8c2020; --hyatt:#6b267d; --ihg:#185c73; --accor:#91621f; --shangrila:#573220; --gha:#2f6848; --other:#6b7386;
   --shadow:0 8px 24px rgba(90,78,52,.16);
 }
 
@@ -110,7 +116,7 @@ a{color:inherit}
   font-size:10.5px;letter-spacing:.1em;padding:2px 9px;border-radius:99px;
   border:1px solid var(--bc,var(--line));color:var(--bc,var(--muted));
 }
-.b-hilton{--bc:var(--hilton)} .b-huazhu{--bc:var(--huazhu)} .b-other{--bc:var(--other)}
+.b-hilton{--bc:var(--hilton)} .b-huazhu{--bc:var(--huazhu)} .b-marriott{--bc:var(--marriott)} .b-hyatt{--bc:var(--hyatt)} .b-ihg{--bc:var(--ihg)} .b-accor{--bc:var(--accor)} .b-shangrila{--bc:var(--shangrila)} .b-gha{--bc:var(--gha)} .b-other{--bc:var(--other)}
 
 .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
 .sec-head h2{font-size:21px;font-weight:600;letter-spacing:.04em}

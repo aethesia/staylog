@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Membership, Stay } from "../types";
+import { normalizeLegacyGroup, type Membership, type Stay } from "../types";
 import { demoMemberships, demoStays } from "../lib/demoData";
 import {
   enqueue,
@@ -191,8 +191,18 @@ export const useStaylog = create<StaylogState>()(
       importData: (stays, memberships) => {
         const uid = get().activeUserId;
         // 补齐 id 与 updatedAt（导入的备份可能缺）
-        const ns: Stay[] = stays.map((s) => ({ ...s, id: s.id || uuid(), updatedAt: nowIso() }));
-        const nm: Membership[] = memberships.map((m) => ({ ...m, id: m.id || uuid(), updatedAt: nowIso() }));
+        const ns: Stay[] = stays.map((s) => ({
+          ...s,
+          id: s.id || uuid(),
+          group: normalizeLegacyGroup(s.group, s.customGroupName),
+          updatedAt: nowIso(),
+        }));
+        const nm: Membership[] = memberships.map((m) => ({
+          ...m,
+          id: m.id || uuid(),
+          group: normalizeLegacyGroup(m.group, m.customName),
+          updatedAt: nowIso(),
+        }));
         const prev = get();
         set((s) => applyToActive(s, (d) => ({ ...d, stays: ns, memberships: nm })));
         if (uid) {
@@ -241,7 +251,7 @@ export const useStaylog = create<StaylogState>()(
     }),
     {
       name: "staylog-data",
-      version: 1,
+      version: 2,
       partialize: (s) => ({ byUser: s.byUser, activeUserId: s.activeUserId }),
       migrate: (persisted: unknown, version: number) => {
         // v0 → v1：给缺 id 的 membership 补 uuid
@@ -253,6 +263,24 @@ export const useStaylog = create<StaylogState>()(
               if (u?.memberships) {
                 u.memberships = u.memberships.map((m) => (m.id ? m : { ...m, id: uuid() }));
               }
+            }
+          }
+        }
+        // v1 → v2：把旧版“其他集团”里的常见自定义集团迁移为独立集团
+        if (version < 2 && persisted && typeof persisted === "object") {
+          const p = persisted as { byUser?: Record<string, UserData> };
+          if (p.byUser) {
+            for (const uid of Object.keys(p.byUser)) {
+              const u = p.byUser[uid];
+              if (!u) continue;
+              u.stays = (u.stays || []).map((s) => ({
+                ...s,
+                group: normalizeLegacyGroup(s.group, s.customGroupName),
+              }));
+              u.memberships = (u.memberships || []).map((m) => ({
+                ...m,
+                group: normalizeLegacyGroup(m.group, m.customName),
+              }));
             }
           }
         }

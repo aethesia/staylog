@@ -1,6 +1,6 @@
 import { supabase } from "./supabase";
 import type { StayRow, MembershipRow } from "./supabase";
-import type { Membership, Stay } from "../types";
+import { normalizeLegacyGroup, type Membership, type Stay } from "../types";
 
 /**
  * 离线优先同步层。
@@ -85,7 +85,7 @@ export function rowToStay(r: StayRow): Stay {
     hotelName: r.hotel_name,
     hotelNameEn: r.hotel_name_en ?? undefined,
     brand: r.brand ?? "",
-    group: r.group as Stay["group"],
+    group: normalizeLegacyGroup(r.group as Stay["group"], r.custom_group_name ?? undefined),
     customGroupName: r.custom_group_name ?? undefined,
     city: r.city ?? "",
     country: r.country ?? "",
@@ -128,7 +128,7 @@ export function membershipToRow(m: Membership, userId: string): MembershipRow {
 export function rowToMembership(r: MembershipRow): Membership {
   return {
     id: r.id,
-    group: r.group as Membership["group"],
+    group: normalizeLegacyGroup(r.group as Membership["group"], r.custom_name ?? undefined),
     customName: r.custom_name ?? undefined,
     customColor: r.custom_color ?? undefined,
     memberNo: r.member_no ?? undefined,

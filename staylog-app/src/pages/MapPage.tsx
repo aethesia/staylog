@@ -23,6 +23,12 @@ const CHINA_ZOOM = 4.5;
 const GROUP_HEX: Record<LoyaltyGroup, string> = {
   hilton: "#3f76d4",
   huazhu: "#d97544",
+  marriott: "#a52a2a",
+  hyatt: "#7b2f8e",
+  ihg: "#1f6f8b",
+  accor: "#b07a2b",
+  shangrila: "#6b3f2a",
+  gha: "#3f7d5a",
   other: "#c9a24b", // 香槟金 --gold
 };
 const BRASS = "#c9a24b";
@@ -343,7 +349,7 @@ export default function MapPage() {
             </button>
             {legendOpen && (
               <div className="map-legend-body">
-                {(["hilton", "huazhu", "other"] as LoyaltyGroup[]).map((g) => (
+                {(["hilton", "huazhu", "marriott", "hyatt", "ihg", "accor", "shangrila", "gha", "other"] as LoyaltyGroup[]).map((g) => (
                   <span key={g}><i style={{ background: GROUP_HEX[g] }} />{GROUP_META[g].short}</span>
                 ))}
                 <span className="map-legend-note">微气泡标签＝入住晚数</span>
