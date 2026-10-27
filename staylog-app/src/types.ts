@@ -4,11 +4,11 @@ export type LoyaltyGroup =
   | "ihg"
   | "hyatt"
   | "accor"
+  | "shangrila"
+  | "gha"
   | "huazhu"
   | "jinjiang"
   | "atour"
-  | "shangrila"
-  | "gha"
   | "other";
 
 export interface Stay {
@@ -83,11 +83,11 @@ export const GROUP_META: Record<
   ihg: { name: "洲际优悦会", short: "洲际", en: "IHG ONE REWARDS", cssVar: "--ihg", className: "b-ihg" },
   hyatt: { name: "凯悦天地", short: "凯悦", en: "WORLD OF HYATT", cssVar: "--hyatt", className: "b-hyatt" },
   accor: { name: "雅高心悦界", short: "雅高", en: "ALL ACCOR", cssVar: "--accor", className: "b-accor" },
+  shangrila: { name: "香格里拉会", short: "香格里拉", en: "SHANGRI-LA CIRCLE", cssVar: "--shangrila", className: "b-shangrila" },
+  gha: { name: "GHA DISCOVERY", short: "GHA", en: "GHA DISCOVERY", cssVar: "--gha", className: "b-gha" },
   huazhu: { name: "华住会", short: "华住", en: "H REWARDS", cssVar: "--huazhu", className: "b-huazhu" },
   jinjiang: { name: "锦江荟", short: "锦江", en: "JINJIANG", cssVar: "--jinjiang", className: "b-jinjiang" },
   atour: { name: "亚朵", short: "亚朵", en: "ATOUR", cssVar: "--atour", className: "b-atour" },
-  shangrila: { name: "香格里拉会", short: "香格里拉", en: "SHANGRI-LA CIRCLE", cssVar: "--shangrila", className: "b-shangrila" },
-  gha: { name: "GHA DISCOVERY", short: "GHA", en: "GHA DISCOVERY", cssVar: "--gha", className: "b-gha" },
   other: { name: "其他集团", short: "其他", en: "OTHER", cssVar: "--other", className: "b-other" },
 };
 

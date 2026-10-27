@@ -351,7 +351,7 @@ export default function MapPage() {
             </button>
             {legendOpen && (
               <div className="map-legend-body">
-                {(["marriott", "hilton", "ihg", "hyatt", "accor", "huazhu", "jinjiang", "atour", "shangrila", "gha", "other"] as LoyaltyGroup[]).map((g) => (
+                {(["marriott", "hilton", "ihg", "hyatt", "accor", "shangrila", "gha", "huazhu", "jinjiang", "atour", "other"] as LoyaltyGroup[]).map((g) => (
                   <span key={g}><i style={{ background: GROUP_HEX[g] }} />{GROUP_META[g].short}</span>
                 ))}
                 <span className="map-legend-note">微气泡标签＝入住晚数</span>
