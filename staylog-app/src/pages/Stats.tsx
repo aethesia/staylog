@@ -6,7 +6,7 @@ import {
   ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from "recharts";
 import { useStaylog } from "../store/staylog";
-import { aggregateCities, nightsByGroup, nightsOf, stayedOnly, summarizeYear, yearsWithData } from "../lib/stats";
+import { aggregateCities, allNightsByGroup, nightsOf, stayedOnly, summarizeYear, yearsWithData } from "../lib/stats";
 import EmptyState from "../components/EmptyState";
 import { GROUP_META, type LoyaltyGroup } from "../types";
 import { IconSparkle } from "../components/Icons";
@@ -21,7 +21,7 @@ export default function Stats() {
   const currentYear = dayjs().year();
 
   const groupData = useMemo(() => {
-    const byGroup = nightsByGroup(stays);
+    const byGroup = allNightsByGroup(stays);
     return Object.entries(byGroup)
       .map(([g, nights]) => ({
         name: g === "other" ? "其他" : GROUP_META[g as LoyaltyGroup]?.name || "其他",
@@ -95,7 +95,7 @@ export default function Stats() {
 
       <div className="charts-2col" style={{ marginBottom: 16 }}>
         <div className="card chart-card">
-          <div className="t">集团分布（按有效房晚）</div>
+          <div className="t">集团分布</div>
           <ResponsiveContainer width="100%" height={240}>
             <PieChart>
               <Pie data={groupData} dataKey="nights" nameKey="name"

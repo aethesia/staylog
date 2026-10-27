@@ -103,6 +103,17 @@ export function nightsByGroup(stays: Stay[], year?: number): Record<string, numb
   return out;
 }
 
+/** 各集团实际住宿晚数；不考虑 eligibleNights，供统计分析使用。 */
+export function allNightsByGroup(stays: Stay[], year?: number): Record<string, number> {
+  const src = year == null ? stayedOnly(stays) : staysInYear(stays, year);
+  const out: Record<string, number> = {};
+  for (const s of src) {
+    const nights = nightsOf(s);
+    if (nights > 0) out[s.group] = (out[s.group] || 0) + nights;
+  }
+  return out;
+}
+
 export interface CityAgg {
   city: string;
   country: string;
