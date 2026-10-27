@@ -25,6 +25,7 @@ function blank(): Stay {
     country: "",
     checkIn: dayjs().format("YYYY-MM-DD"),
     checkOut: dayjs().add(1, "day").format("YYYY-MM-DD"),
+    eligibleNights: true,
     currency: "CNY",
   };
 }
@@ -315,6 +316,14 @@ export default function StayForm({ open, initial, onSave, onClose }: Props) {
           {isUpcoming(form) && (
             <div className="geo-status">未来日期，将记为「即将入住」，暂不计入统计</div>
           )}
+          <div className="field">
+            <label htmlFor="eligibleNights">是否计入集团有效房晚</label>
+            <select id="eligibleNights" value={form.eligibleNights === false ? "no" : "yes"}
+              onChange={(e) => set("eligibleNights", e.target.value === "yes")}>
+              <option value="yes">是，计入有效房晚</option>
+              <option value="no">否，仅记录住宿</option>
+            </select>
+          </div>
           <div className="field">
             <label htmlFor="roomType">房型（选填）</label>
             <input id="roomType" value={form.roomType || ""}

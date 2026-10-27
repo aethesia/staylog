@@ -42,6 +42,7 @@ export default function StayCard({ stay, onEdit, onDelete, onRepeat }: Props) {
         <div className="meta">
           {upcoming && <span className="chip upcoming-chip">即将入住 · {daysLeft} 天后</span>}
           <span className={`chip ${meta.className}`}>{groupLabel}</span>
+          {stay.eligibleNights === false && <span className="chip">不计有效房晚</span>}
           <span>{stay.city} · {stay.country}</span>
           {stay.roomType && <span>{stay.roomType}</span>}
           {stay.rating != null && <span>★ {stay.rating}</span>}

@@ -6,6 +6,11 @@ export function nightsOf(stay: Stay): number {
   return Math.max(1, dayjs(stay.checkOut).diff(dayjs(stay.checkIn), "day"));
 }
 
+/** 用于集团会籍定级的有效房晚；旧数据缺少字段时按计入处理。 */
+export function eligibleNightsOf(stay: Stay): number {
+  return stay.eligibleNights === false ? 0 : nightsOf(stay);
+}
+
 // ============ 时态：已住 vs 已订未住 ============
 // 没有 status 字段，纯按日期推导：入住日晚于今天 = 未来行程。
 // 未来行程不能进任何统计口径（否则首页 KPI/地图/年度总结会把还没发生的事算进去），
@@ -87,10 +92,14 @@ export function monthlyNights(stays: Stay[], year: number): number[] {
   return months;
 }
 
+/** 各集团有效房晚；eligibleNights=false 的住宿只保留在住宿记录中，不计入会籍统计。 */
 export function nightsByGroup(stays: Stay[], year?: number): Record<string, number> {
   const src = year == null ? stayedOnly(stays) : staysInYear(stays, year);
   const out: Record<string, number> = {};
-  for (const s of src) out[s.group] = (out[s.group] || 0) + nightsOf(s);
+  for (const s of src) {
+    const nights = eligibleNightsOf(s);
+    if (nights > 0) out[s.group] = (out[s.group] || 0) + nights;
+  }
   return out;
 }
 
@@ -194,7 +203,7 @@ export function recentMonthlyPace(stays: Stay[], months = 6): number {
   const cutoff = dayjs().subtract(months, "month").startOf("month");
   const nights = stayedOnly(stays)
     .filter((s) => dayjs(s.checkIn).isAfter(cutoff))
-    .reduce((n, s) => n + nightsOf(s), 0);
+    .reduce((n, s) => n + eligibleNightsOf(s), 0);
   return nights / months;
 }
 
@@ -302,6 +311,15 @@ export function nextTier(group: LoyaltyGroup, tier: string): TierDef | null {
   return tiers[i + 1] ?? null;
 }
 
+/** 当前等级到下一级是否可以完全按房晚自动计算。 */
+export function tierUsesAutomaticNights(group: LoyaltyGroup, tier: string): boolean {
+  const tiers = GROUP_TIERS[group];
+  if (!tiers || tiers.length === 0) return false;
+  const index = tiers.findIndex((t) => t.name === tier);
+  if (index < 0 || tiers[index].manualOnly) return false;
+  return !tiers[index + 1]?.manualOnly;
+}
+
 export interface TierProgress {
   /** upgrade=冲刺下一级；top=已达最高（保级）；manual=自定义/旧数据手填 */
   mode: "upgrade" | "top" | "manual";
@@ -327,7 +345,7 @@ export function tierProgress(m: Membership, stays: Stay[], year: number): TierPr
   const progress = (nightsByGroup(stays, year)[m.group] || 0) + m.bonusNights;
   const tiers = GROUP_TIERS[m.group];
 
-  // 自定义集团（无内置等级）→ 手填
+  // 无内置等级 → 手填
   if (!tiers || tiers.length === 0) {
     return manualProgress(m, progress);
   }
@@ -339,6 +357,9 @@ export function tierProgress(m: Membership, stays: Stay[], year: number): TierPr
   }
 
   const next = nextTier(m.group, m.tier);
+  if (cur.manualOnly || next?.manualOnly) {
+    return manualProgress(m, progress);
+  }
   if (next) {
     const threshold = next.nights;
     return {
@@ -409,7 +430,7 @@ export function tierProjection(
   // 已订未住中，属于该集团且入住日落在本定级年内的晚数
   const upcomingNights = upcomingOf(stays)
     .filter((s) => s.group === m.group && dayjs(s.checkIn).year() === year)
-    .reduce((n, s) => n + nightsOf(s), 0);
+    .reduce((n, s) => n + eligibleNightsOf(s), 0);
 
   const projected = tp.progress + upcomingNights;
   const remainingAfterBooked = Math.max(0, tp.threshold - projected);

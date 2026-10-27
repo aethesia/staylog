@@ -207,6 +207,7 @@ export function parseBookingText(text: string): ParsedBooking | null {
     country: city ? "中国" : "",
     checkIn: ci,
     checkOut: checkOut || dayjs(ci).add(1, "day").format("YYYY-MM-DD"),
+    eligibleNights: true,
     roomType: roomType || undefined,
     rate,
     currency: currency || "CNY",

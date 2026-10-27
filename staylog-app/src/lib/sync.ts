@@ -93,6 +93,8 @@ export function rowToStay(r: StayRow): Stay {
     lng: r.lng ?? undefined,
     checkIn: r.check_in,
     checkOut: r.check_out,
+    // 数据库结构没有该字段；云端旧记录默认计入有效房晚。
+    eligibleNights: true,
     roomType: r.room_type ?? undefined,
     rate: r.rate ?? undefined,
     currency: r.currency ?? undefined,

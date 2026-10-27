@@ -5,7 +5,7 @@ import WalletCard from "../components/WalletCard";
 import ConfirmDialog from "../components/ConfirmDialog";
 import type { LoyaltyGroup, Membership } from "../types";
 import { GROUP_META, GROUP_TIERS } from "../types";
-import { nextTier } from "../lib/stats";
+import { nextTier, tierUsesAutomaticNights } from "../lib/stats";
 import { IconPlus, IconX } from "../components/Icons";
 
 interface ExpiryEntry {
@@ -284,7 +284,7 @@ export default function Programs() {
                     onChange={(e) => set("tierExpiry", e.target.value || undefined)} />
                 </div>
               </div>
-              {GROUP_TIERS[form.group].length > 0 ? (
+              {GROUP_TIERS[form.group].length > 0 && tierUsesAutomaticNights(form.group, form.tier) ? (
                 <div className="field">
                   <label>下一等级（自动按晚数计算）</label>
                   <div className="derived-tier">
@@ -300,7 +300,7 @@ export default function Programs() {
               ) : (
                 <div className="field-row">
                   <div className="field">
-                    <label htmlFor="m-target">冲刺目标（选填）</label>
+                    <label htmlFor="m-target">{tierUsesAutomaticNights(form.group, form.tier) ? "冲刺目标（选填）" : "手动目标（选填）"}</label>
                     <input id="m-target" value={form.targetTier || ""}
                       onChange={(e) => set("targetTier", e.target.value || undefined)} placeholder="钻石续级 / 升级钛金" />
                   </div>
@@ -315,7 +315,11 @@ export default function Programs() {
                 <label htmlFor="m-bonus">赠晚（信用卡等非入住晚数）</label>
                 <input id="m-bonus" type="number" min={0} value={form.bonusNights}
                   onChange={(e) => set("bonusNights", Number(e.target.value) || 0)} />
-                <div className="hint">定级进度 = 本年住宿晚数（自动统计）+ 赠晚</div>
+                <div className="hint">
+                  {!tierUsesAutomaticNights(form.group, form.tier)
+                    ? "该计划包含次数、消费或品牌数量条件，请按实际规则手动填写目标"
+                    : "定级进度 = 本年住宿晚数（自动统计）+ 赠晚"}
+                </div>
               </div>
               <div className="field">
                 <label>权益券 / 免房券</label>

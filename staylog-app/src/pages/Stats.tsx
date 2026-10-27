@@ -95,7 +95,7 @@ export default function Stats() {
 
       <div className="charts-2col" style={{ marginBottom: 16 }}>
         <div className="card chart-card">
-          <div className="t">集团分布（按晚数）</div>
+          <div className="t">集团分布（按有效房晚）</div>
           <ResponsiveContainer width="100%" height={240}>
             <PieChart>
               <Pie data={groupData} dataKey="nights" nameKey="name"

@@ -25,6 +25,7 @@ export function repeatDraft(src: Stay): Stay {
     lng: src.lng,
     checkIn,
     checkOut: dayjs(checkIn).add(nights, "day").format("YYYY-MM-DD"),
+    eligibleNights: src.eligibleNights !== false,
     roomType: src.roomType,
     rate: src.rate,
     currency: src.currency,

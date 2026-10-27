@@ -24,12 +24,14 @@
   --danger:#e0655f;
   --map-dot:#2c313a;
   --map-glow:rgba(201,162,75,.35);
-  --hilton:#3f76d4;
-  --huazhu:#d97544;
   --marriott:#a52a2a;
-  --hyatt:#7b2f8e;
+  --hilton:#3f76d4;
   --ihg:#1f6f8b;
+  --hyatt:#7b2f8e;
   --accor:#b07a2b;
+  --huazhu:#d97544;
+  --jinjiang:#8b5a2b;
+  --atour:#b35c8d;
   --shangrila:#6b3f2a;
   --gha:#3f7d5a;
   --other:#8a94a6;
@@ -48,7 +50,7 @@
     --emboss:inset 0 1px 0 rgba(255,255,255,.6), 0 8px 22px rgba(90,78,52,.16);
     --good:#2b9463; --warn:#a4791f; --danger:#bf4040;
     --map-dot:#d3cebd; --map-glow:rgba(143,109,36,.35);
-    --hilton:#2a5cb8; --huazhu:#c25c2d; --marriott:#8c2020; --hyatt:#6b267d; --ihg:#185c73; --accor:#91621f; --shangrila:#573220; --gha:#2f6848; --other:#6b7386;
+    --marriott:#8c2020; --hilton:#2a5cb8; --ihg:#185c73; --hyatt:#6b267d; --accor:#91621f; --huazhu:#c25c2d; --jinjiang:#70451f; --atour:#91466f; --shangrila:#573220; --gha:#2f6848; --other:#6b7386;
     --shadow:0 8px 24px rgba(90,78,52,.16);
   }
 }
@@ -61,7 +63,7 @@
   --emboss:inset 0 1px 0 rgba(255,255,255,.6), 0 8px 22px rgba(90,78,52,.16);
   --good:#2b9463; --warn:#a4791f; --danger:#bf4040;
   --map-dot:#d3cebd; --map-glow:rgba(143,109,36,.35);
-  --hilton:#2a5cb8; --huazhu:#c25c2d; --marriott:#8c2020; --hyatt:#6b267d; --ihg:#185c73; --accor:#91621f; --shangrila:#573220; --gha:#2f6848; --other:#6b7386;
+  --marriott:#8c2020; --hilton:#2a5cb8; --ihg:#185c73; --hyatt:#6b267d; --accor:#91621f; --huazhu:#c25c2d; --jinjiang:#70451f; --atour:#91466f; --shangrila:#573220; --gha:#2f6848; --other:#6b7386;
   --shadow:0 8px 24px rgba(90,78,52,.16);
 }
 
@@ -116,7 +118,7 @@ a{color:inherit}
   font-size:10.5px;letter-spacing:.1em;padding:2px 9px;border-radius:99px;
   border:1px solid var(--bc,var(--line));color:var(--bc,var(--muted));
 }
-.b-hilton{--bc:var(--hilton)} .b-huazhu{--bc:var(--huazhu)} .b-marriott{--bc:var(--marriott)} .b-hyatt{--bc:var(--hyatt)} .b-ihg{--bc:var(--ihg)} .b-accor{--bc:var(--accor)} .b-shangrila{--bc:var(--shangrila)} .b-gha{--bc:var(--gha)} .b-other{--bc:var(--other)}
+.b-marriott{--bc:var(--marriott)} .b-hilton{--bc:var(--hilton)} .b-ihg{--bc:var(--ihg)} .b-hyatt{--bc:var(--hyatt)} .b-accor{--bc:var(--accor)} .b-huazhu{--bc:var(--huazhu)} .b-jinjiang{--bc:var(--jinjiang)} .b-atour{--bc:var(--atour)} .b-shangrila{--bc:var(--shangrila)} .b-gha{--bc:var(--gha)} .b-other{--bc:var(--other)}
 
 .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
 .sec-head h2{font-size:21px;font-weight:600;letter-spacing:.04em}

@@ -21,14 +21,16 @@ const CHINA_ZOOM = 4.5;
 
 // 集团配色（与 src/styles/tokens.css 的 --hilton 等保持同步）。
 const GROUP_HEX: Record<LoyaltyGroup, string> = {
-  hilton: "#3f76d4",
-  huazhu: "#d97544",
-  marriott: "#a52a2a",
-  hyatt: "#7b2f8e",
-  ihg: "#1f6f8b",
-  accor: "#b07a2b",
-  shangrila: "#6b3f2a",
-  gha: "#3f7d5a",
+  marriott: "#f0bb9b",
+  hilton: "#17305d",
+  ihg: "#8b6855",
+  hyatt: "#3f73c7",
+  accor: "#1f1b4f",
+  huazhu: "#3b2e55",
+  jinjiang: "#a89039",
+  atour: "#1a3843",
+  shangrila: "#e6d296",
+  gha: "#2c1357",
   other: "#c9a24b", // 香槟金 --gold
 };
 const BRASS = "#c9a24b";
@@ -349,7 +351,7 @@ export default function MapPage() {
             </button>
             {legendOpen && (
               <div className="map-legend-body">
-                {(["hilton", "huazhu", "marriott", "hyatt", "ihg", "accor", "shangrila", "gha", "other"] as LoyaltyGroup[]).map((g) => (
+                {(["marriott", "hilton", "ihg", "hyatt", "accor", "huazhu", "jinjiang", "atour", "shangrila", "gha", "other"] as LoyaltyGroup[]).map((g) => (
                   <span key={g}><i style={{ background: GROUP_HEX[g] }} />{GROUP_META[g].short}</span>
                 ))}
                 <span className="map-legend-note">微气泡标签＝入住晚数</span>
